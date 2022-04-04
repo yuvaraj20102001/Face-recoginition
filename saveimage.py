@@ -8,7 +8,5 @@ img1=cv2.line(img1,(100,0),(200,200),(255,0,255),1)
 img2=cv2.line(img2,(100,0),(200,200),(255,0,255),1)
 
 img2=cv2.rectangle(img2,(0,150),(300,300),(255,0,255),-1)
-cv2.imwrite("vertical.jpg",img1)
-cv2.imwrite("horizontal.jpg",img2)
 # cv2.imshow("imshow",img2)
 cv2.waitKey(0)
