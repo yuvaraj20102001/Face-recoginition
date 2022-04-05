@@ -1,0 +1,1 @@
+x=np.repeat(b,2,axis=0)

@@ -31,9 +31,5 @@ c=c.reshape(5,2)
 print("RESHAPING ::",b,c,sep="\n")
 print("Flattening and Ravel :::",b.flatten(),c.ravel(),sep="\n")
 
-s=[np.array([[10,20,30,40],[50,60,70,80]])]
-x1=np.repeat(s,2,axis=0)#columnwise repeation
-x2=np.repeat(s,2,axis=1)#rowise repeation
-# print(x1,x2)
-
-print(s[0:])
+x=np.repeat(b,2,axis=0)
+print(x)
