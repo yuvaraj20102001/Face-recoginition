@@ -1,0 +1,254 @@
+# %%
+#1
+import numpy as np
+
+# %%
+#2
+np.version.version
+
+# %%
+#3
+x=np.zeros(10)
+x
+
+# %%
+#4
+print("number of elemnt:",x.size)
+print("number of bytes occupied:",x.nbytes)
+
+
+# %%
+#5
+help(np.add)
+
+# %%
+#6
+x[4]=1
+x
+
+# %%
+#7
+a=np.arange(10,49)
+a
+
+# %%
+#8
+a[::-1]
+
+# %%
+#9
+a=np.arange(0,9).reshape((3,3))
+a
+
+# %%
+#10
+x=np.array([1,2,4,0,1,0,0,4,10,0,1,1,0])
+np.nonzero(x)
+
+# %%
+#11
+np.identity(3)
+
+# %%
+#12
+np.random.randint(0,9,size=(3,3,3))
+
+# %%
+#13
+a=np.random.randint(90,566,size=(10,10))
+print(np.min(a))
+print(np.max(a))
+
+# %%
+#14
+rng=np.random.default_rng(10)
+x=rng.random((30))
+np.mean(x)
+
+# %%
+#15
+o=np.ones((5,5))
+z=np.zeros((3,3))
+o[1:4,1:4]=z
+o
+
+# %%
+#16
+x=np.ones((5,5))
+x[0]=0
+x[-1]=0
+x[:,0]=0
+x[:,-1]=0
+x
+
+# %% [markdown]
+# #17
+# FALSE
+
+# %%
+#18
+np.diag(np.arange(1,5),k=-1)
+
+# %%
+#19
+z=np.ones((8,8))
+z[1::2,::2]=0
+z[::2,1::2]=0
+z
+
+# %%
+#20
+rng=np.random.default_rng(1000)
+rng.random((6,7,8))
+np.unravel_index(99,(6,7,8))
+
+# %%
+#21
+np.tile([[1,0],[0,1]],(4,4))
+
+# %%
+x=np.random.randint(2,10,size=(5,5))
+x=(x-np.min(x))/(np.max(x)-np.min(x))
+#x /=  x.sum(axis=1)[:,np.newaxis]
+x
+
+# %%
+color=np.dtype([('R',np.ubyte),('G',np.ubyte),('B',np.ubyte),('A',np.ubyte)])
+color
+
+# %%
+a=np.arange(1,16).reshape((5,3))
+b=np.arange(1,7).reshape((3,2))
+print(a)
+print(b)
+a@b
+
+# %%
+a=np.array([1,2,3,4,5,56,56,4,4,6,8,2,1])
+a[np.nonzero((a>3) & (a<8))]*=-1
+a
+
+# %%
+print(sum(range(0,5),-1))
+from numpy import *
+print(sum(range(0,5),-1))
+
+# %%
+Z=array([1,2,3,4,5,6,7,8,9])
+Z**Z
+2 << Z >>2
+
+# %%
+#Z=np.array([1.000000002,2.00201,3.1222,4.123123,5.1231232,6.123312212],dtype=np.float64)
+Z = np.random.uniform(-10,+10,10)
+
+print(Z)
+print(np.copysign(np.ceil(np.abs(Z)), Z))
+print(np.ceil(np.abs(Z)))
+#x=x.astype(int64)
+
+
+# %%
+a=np.random.randint(1,25,size=(2,7))
+b=np.random.randint(1,25,size=(7,4))
+print(a)
+print(b)
+np.intersect1d(a,b)
+
+# %%
+
+print(np.sqrt(-1))
+np.emath.sqrt(-4)
+
+# %%
+print(np.datetime64('today')+np.timedelta64(1))
+print(np.datetime64('today'))
+print(np.datetime64('today')-np.timedelta64(1))
+
+# %%
+dates=np.arange('2016-07','2016-08',dtype='datetime64[D]')
+dates
+
+# %%
+a=np.ones(5)
+b=np.ones(5)
+np.divide(a,2,out=a)
+np.add(a,b,out=b)
+np.multiply(a,b,out=a)
+a
+
+# %%
+a = np.random.uniform(0,10,10)
+
+print(a - a%1)
+print(a // 1)
+print(np.floor(a))
+print(a.astype(int))
+print(np.trunc(a))
+
+# %%
+a = np.zeros((5,5))
+a += np.arange(5)
+print(Z)
+
+
+# %%
+def generate():
+    for x in range(10):
+        yield x
+x = np.fromiter(generate(),dtype=float,count=-1)
+print(x)
+
+# %%
+Z = np.linspace(0,1,11,endpoint=False)[1:]
+print(Z)
+
+# %%
+b = np.random.random(10)
+b.sort()
+print(b)
+
+# %%
+Z = np.arange(10)
+np.add.reduce(Z)
+
+# %%
+A = np.random.randint(0,2,5)
+B = np.random.randint(0,2,5)
+print(A,B)
+np.array_equal(A,B)
+np.array_equiv(A,B)
+
+
+
+# %%
+A = np.random.randint(0,2,5)
+A.flags.writeable=None
+A[0]=1
+A
+
+
+# %%
+a=np.random.randint(0,10,(10,2))
+print(a)
+x,y=a[:,0],a[:,1]
+x,y
+r = np.sqrt(x**2+y**2)
+t = np.arctan2(y,x)
+r,t
+
+# %%
+a=random.randint(0,100,(10))
+print(a)
+a[np.argmax(a)]=0
+a
+
+# %%
+Z = np.zeros((5,5), [('x',float),('y',float)])
+Z['x'], Z['y'] = np.meshgrid(np.linspace(0,1,5),np.linspace(0,1,5))
+print(Z)
+
+# %%
+
+
+
