@@ -1,1 +1,1 @@
-x=np.repeat(b,2,axis=0)
+arclen2=cv2.arcLength(contour, True
