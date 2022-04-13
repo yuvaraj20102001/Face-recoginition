@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-img=cv2.imread('filter/rect.png')
+img=cv2.imread('filter/shapes.jpg')
 # img1=100*np.ones((300,300),np.uint8)
 # img2=100*np.ones((300,300),np.uint8)
 print(img.shape)
