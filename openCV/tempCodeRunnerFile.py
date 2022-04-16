@@ -1,1 +1,1 @@
-cv2.imshow("imshow",img)
+850

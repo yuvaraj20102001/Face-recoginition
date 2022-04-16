@@ -1,37 +1,29 @@
-# Python code to find the co-ordinates of
-# the contours detected in an image.
 import numpy as np
 import cv2
 
-# Reading image
+
 font = cv2.FONT_HERSHEY_COMPLEX
-img2 = cv2.imread('filter/shapes.jpg', cv2.IMREAD_COLOR)
+img2 = cv2.imread('newimg.jpg', cv2.IMREAD_COLOR)
+#img2=cv2.resize(img2,(0,0),fx=1.5,fy=1.5)
 
-# Reading same image in another
-# variable and converting to gray scale.
-img = cv2.imread('filter/shapes.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('newimg.jpg', cv2.IMREAD_GRAYSCALE)
+#img=cv2.resize(img,(0,0),fx=1.5,fy=1.5)
 
-# Converting image to a binary image
-# ( black and white only image).
-_, threshold = cv2.threshold(img, 110, 255, cv2.THRESH_BINARY)
+_, threshold = cv2.threshold(img,200, 255, cv2.THRESH_BINARY)
 
-# Detecting contours in image.
-contours, _= cv2.findContours(threshold, cv2.RETR_TREE,
-							cv2.CHAIN_APPROX_SIMPLE)
+contours, _= cv2.findContours(threshold, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
-# Going through every contours found in the image.
 for cnt in contours :
 
-	approx = cv2.approxPolyDP(cnt, 0.009 * cv2.arcLength(cnt, False), False)
-	print("arclength for false openloop",cv2.arcLength(cnt, False))
+	approx = cv2.approxPolyDP(cnt, 0.009* cv2.arcLength(cnt, True), True)
+	print("arclength for false openloop",cv2.arcLength(cnt, True))
 	print("arc length for true closed surve",cv2.arcLength(cnt, True))
 	x,y,w,h=cv2.boundingRect(approx)
 	print("WIDTH HEIGHT :::",w,h)
-	# draws boundary of contours.
-	cv2.drawContours(img2, [approx], 0, (0, 0, 255), 2)
 
-	# Used to flatted the array containing
-	# the co-ordinates of the vertices.
+	cv2.drawContours(img2, [approx], 0, (0, 0, 255), 2)
+	print("approx",np.squeeze(approx))
+
 	n = approx.ravel()
 	i = 0
 
@@ -55,7 +47,4 @@ for cnt in contours :
 
 # Showing the final image.
 cv2.imshow('image2', img2)
-
-# Exiting the window if 'q' is pressed on the keyboard.
-if cv2.waitKey(0) & 0xFF == ord('q'):
-	cv2.destroyAllWindows()
+cv2.waitKey(0)
