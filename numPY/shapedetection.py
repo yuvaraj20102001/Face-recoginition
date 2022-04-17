@@ -12,8 +12,8 @@ def verify_opposides(a):
   d2=distance(a[2],a[3])
   d3=distance(a[0],a[3])
   d4=distance(a[1],a[2])
-  print(int(d1),int(d2),int(d3),int(d4))
-  if(d1==d2 and d3==d4):
+  print(d1,d2,d3,d4)
+  if((d2<=(d1+1) and d2>=(d1-1)) and (d4<=(d3+1) and d4>=(d3-1))):
     return 1
   else:
     return 0
@@ -26,15 +26,15 @@ def calculate_centroid(a):
   return([x,y])
 
 # img2=cv2.imread("filter/shapes.jpg")
-img=cv2.imread("newimg.jpg")
-# img=cv2.resize(img2,(img.shape[1],img.shape[0]))
+img=cv2.imread("filter/shapes2.png")
+#img=cv2.resize(img,(0,0),fx=1.5,fy=1.5)
 # img=np.stack((img,img2))
 # print(img.shape)
 
 grayimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #grayimg=cv2.GaussianBlur(grayimg,(7,7),1)
 
-_,threshimg=cv2.threshold(grayimg,150,255,cv2.THRESH_BINARY)
+_,threshimg=cv2.threshold(grayimg,200,255,cv2.THRESH_BINARY)
 #cv2.imshow("gray",threshimg)
 
 contours,hierarchy=cv2.findContours(threshimg,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -44,7 +44,7 @@ contours,hierarchy=cv2.findContours(threshimg,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIM
 
 for contour in contours[1:]:
   arclen=cv2.arcLength(contour, True)
-  approx = cv2.approxPolyDP(contour, 0.009 * arclen, True)
+  approx = cv2.approxPolyDP(contour, 0.01 * arclen, True)
   cv2.drawContours(img,[approx],0,(0,255,0),2)
   #print(contour[0])
   # print(contour)
@@ -56,9 +56,9 @@ for contour in contours[1:]:
     approx=np.squeeze(approx)
     print(approx)
 
-    #print(w,h)
+    print(w,h)
     if(verify_opposides(np.array(approx))):
-      if(w==h):
+      if((w<=h+1 and w>=h-1) or (h>=w-1 and h<=w+1)):
         cv2.putText(img,'SQUARE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
         cv2.circle(img,(500,450),3,(0,0,0),-1)
       else:
@@ -71,7 +71,7 @@ for contour in contours[1:]:
     cv2.putText(img,'LINE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
 
   elif(len(approx)==3):
-    cv2.putText(img,'TRIANGLE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2)
+    cv2.putText(img,'TRIANGLE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
 
 
   elif(len(approx)==5):
@@ -80,8 +80,8 @@ for contour in contours[1:]:
     approx=np.squeeze(approx)
     for i in range(0,4):
       print(approx[i],approx[i+1])
-      dis.append(int(distance(approx[i],approx[i+1])))
-    dis.append(int(distance(approx[4],approx[0])))
+      dis.append(distance(approx[i],approx[i+1]))
+    dis.append(distance(approx[4],approx[0]))
     print(dis)
 
     for i in range(5):

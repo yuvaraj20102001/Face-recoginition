@@ -46,5 +46,6 @@ for cnt in contours :
 		i = i + 1
 
 # Showing the final image.
+cv2.imwrite("coordinate.jpg",img2)
 cv2.imshow('image2', img2)
 cv2.waitKey(0)
