@@ -35,24 +35,24 @@ for contour in contours[1:]:
 
   print(approx)
 
-  if(len(approx)==5):
+  if(len(approx)==6):
     dis=[]
     count=0
     approx=np.squeeze(approx)
-    for i in range(0,4):
+    for i in range(0,5):
       print(approx[i],approx[i+1])
       dis.append(distance(approx[i],approx[i+1]))
-    dis.append(distance(approx[4],approx[0]))
-    dis.sort()
+    dis.append(distance(approx[5],approx[0]))
+    #dis.sort()
     print(dis)
 
-    for i in range(0,5):
-      for j in range(i+1,5):
+    for i in range(0,6):
+      for j in range(i+1,6):
         if(dis[j]<=(dis[i]+1) and dis[j]>=(dis[i]-1)):
           count+=1
     print(count)
-    if(count>=2):
-      cv2.putText(img,'PENTAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    if(count>=4):
+      cv2.putText(img,'HEXAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
     else:
       dis=[]
       count=0

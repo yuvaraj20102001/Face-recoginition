@@ -26,7 +26,7 @@ def calculate_centroid(a):
   return([x,y])
 
 # img2=cv2.imread("filter/shapes.jpg")
-img=cv2.imread("filter/shapes2.png")
+img=cv2.imread("newimg.jpg")
 #img=cv2.resize(img,(0,0),fx=1.5,fy=1.5)
 # img=np.stack((img,img2))
 # print(img.shape)
@@ -82,22 +82,44 @@ for contour in contours[1:]:
       print(approx[i],approx[i+1])
       dis.append(distance(approx[i],approx[i+1]))
     dis.append(distance(approx[4],approx[0]))
+    dis.sort()
     print(dis)
 
-    for i in range(5):
-      if(int(dis[i]) in dis[i+1:]):
-        count+=1
+    for i in range(0,5):
+      for j in range(i+1,5):
+        if(dis[j]<=(dis[i]+1) and dis[j]>=(dis[i]-1)):
+          count+=1
     print(count)
-    if(count==2 or count==3):
+    if(count>=2):
       cv2.putText(img,'PENTAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
     else:
       dis=[]
       count=0
-      cv2.putText(img,'irregular polygon',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2)
+      cv2.putText(img,'irregular polygon',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
 
 
   elif(len(approx)==6):
-    cv2.putText(img,'HEXAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    dis=[]
+    count=0
+    approx=np.squeeze(approx)
+    for i in range(0,5):
+      print(approx[i],approx[i+1])
+      dis.append(distance(approx[i],approx[i+1]))
+    dis.append(distance(approx[5],approx[0]))
+    #dis.sort()
+    print(dis)
+
+    for i in range(0,6):
+      for j in range(i+1,6):
+        if(dis[j]<=(dis[i]+1) and dis[j]>=(dis[i]-1)):
+          count+=1
+    print(count)
+    if(count>=4):
+      cv2.putText(img,'HEXAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    else:
+      dis=[]
+      count=0
+      cv2.putText(img,'irregular polygon',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
   else:
     cv2.putText(img,'CIRCLE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
 #threshimg=cv2.cvtColor(threshimg,cv2.COLOR_GRAY2BGR)
