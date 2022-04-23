@@ -34,7 +34,7 @@ img=cv2.imread("newimg.jpg")
 grayimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #grayimg=cv2.GaussianBlur(grayimg,(7,7),1)
 
-_,threshimg=cv2.threshold(grayimg,200,255,cv2.THRESH_BINARY)
+_,threshimg=cv2.threshold(grayimg,170,255,cv2.THRESH_BINARY)
 #cv2.imshow("gray",threshimg)
 
 contours,hierarchy=cv2.findContours(threshimg,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -54,7 +54,7 @@ for contour in contours[1:]:
 
   if(len(approx)==4): 
     approx=np.squeeze(approx)
-    print(approx)
+    #print(approx)
 
     print(w,h)
     if(verify_opposides(np.array(approx))):
@@ -71,7 +71,29 @@ for contour in contours[1:]:
     cv2.putText(img,'LINE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
 
   elif(len(approx)==3):
-    cv2.putText(img,'TRIANGLE',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    dis=[]
+    count=0
+    approx=np.squeeze(approx)
+    for i in range(0,2):
+      print(approx[i],approx[i+1])
+      dis.append(distance(approx[i],approx[i+1]))
+    dis.append(distance(approx[2],approx[0]))
+    #dis.sort()
+    print(dis)
+
+    for i in range(0,3):
+      for j in range(i+1,3):
+        if(dis[j]<=(dis[i]+1) and dis[j]>=(dis[i]-1)):
+          count+=1
+    print(count)
+    if(count==3):
+      cv2.putText(img,'equilateral',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    elif(count==1):
+      cv2.putText(img,'isosceles',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
+    else:
+      dis=[]
+      count=0
+      cv2.putText(img,'Scalene',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
 
 
   elif(len(approx)==5):
@@ -82,7 +104,7 @@ for contour in contours[1:]:
       print(approx[i],approx[i+1])
       dis.append(distance(approx[i],approx[i+1]))
     dis.append(distance(approx[4],approx[0]))
-    dis.sort()
+    #dis.sort()
     print(dis)
 
     for i in range(0,5):
@@ -114,7 +136,7 @@ for contour in contours[1:]:
         if(dis[j]<=(dis[i]+1) and dis[j]>=(dis[i]-1)):
           count+=1
     print(count)
-    if(count>=4):
+    if(count>=3):
       cv2.putText(img,'HEXAGON',(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
     else:
       dis=[]

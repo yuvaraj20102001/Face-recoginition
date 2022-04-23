@@ -93,8 +93,8 @@ transimage2=cv2.warpAffine(img3,transmat,(img3.shape[1],img3.shape[0]))
 and with respect to the rotation matrix the image is warped to rotate. As we made the transformation matrix for translation
 on our own the rotation matrix will be returned by getRotationMatrix2D() where center,angle,scale is passed as input. here also 
 2*3 matrix will be returned the matrtix will be vector multiplied by [[cosB -sinB 0],[sinB cosB,0]]'''
-
-rotationmatrix=cv2.getRotationMatrix2D((img.shape[1]//2,img.shape[0]//2),45,1.0)
+transf_matrix=cv2.getAffineTransform()
+#rotationmatrix=cv2.getRotationMatrix2D((img.shape[1]//2,img.shape[0]//2),45,1.0)
 rotatedimage=cv2.warpAffine(img,rotationmatrix,(img.shape[1],img.shape[0]))
 # cv2.imwrite("rotatedimage.jpg",rotatedimage)
 # cv2.imshow("rotated image",rotatedimage)

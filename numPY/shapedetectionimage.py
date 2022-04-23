@@ -2,7 +2,7 @@
 import numpy as np
 import cv2
 
-img=cv2.imread("filter/rect3.jpg")
+img=cv2.imread("newimg.jpg")
 #img=cv2.resize(img,(0,0),fx=0.25,fy=0.25)
 # print(img.shape)
 def distance(p1,p2):

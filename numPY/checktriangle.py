@@ -18,7 +18,7 @@ def verify_opposides(a):
     return 0
 
 
-img=cv2.imread("newimg.jpg")
+img=cv2.imread("filter/equi.jpg")
 #img=cv2.resize(img,(0,0),fx=1.5,fy=1.5)
 
 grayimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
